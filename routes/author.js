@@ -10,7 +10,7 @@ authorsRouter.get('/',async (req,res)=>{
     try {
         const authors = await Author.find(searchParams)
         res.render('authors/index', {
-            authors : authors, 
+            authors : authors,  
             searchParams: req.query
         })
     } catch {
