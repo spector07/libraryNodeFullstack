@@ -8,7 +8,8 @@ const bodyParser = require('body-parser')
 const authorsRouter = require('./routes/author') 
 const route = require('./routes/index')
 const mongoose = require('mongoose')
- 
+const booksRouter = require('./routes/books')   
+
 app.set('view engine', 'ejs')
 app.set('views', __dirname + '/views')
 app.set('layout',  'layouts/layout')
@@ -24,5 +25,6 @@ db.once('open', () => console.log('Connected to MongoDB'))
 
 app.use('/', route)
 app.use('/authors', authorsRouter)
+app.use('/books', booksRouter)
 
 app.listen(process.env.PORT || 3000)
