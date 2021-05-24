@@ -24,10 +24,6 @@ const bookSchema = new mongoose.Schema({
         required: true,
         default: Date.now
     },
-    // coverImageName: {
-    //     type: String,
-    //     required: true
-    // },
     author: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,

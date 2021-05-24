@@ -62,6 +62,53 @@ booksRouter.get('/new',async (req,res)=>{
     renderNewPage(res, new Book())    
 })
 
+booksRouter.get('/:id', async (req,res) => {
+    try {
+        const book = await Book.findById(req.params.id).populate('author').exec()
+        res.render('books/show', {
+            book: book
+        })
+    } catch  {
+        res.render('/books')
+    }
+})
+
+booksRouter.get('/:id/edit', async (req,res) => {
+    try {
+        const book = await Book.findById(req.params.id).populate('author').exec()
+        const authors = await Author.find()
+        res.render(`books/edit`,{
+            book: book,
+            authors: authors
+        })
+    } catch  {
+        res.render('/books')
+    }
+}) 
+
+booksRouter.put('/:id', async (req,res) => {
+    try {
+        const book = await Book.findById(req.params.id)
+        book.title = req.body.title
+        book.author = req.body.author
+        book.publishDate = new Date(req.body.publishDate)
+        book.pageCount = req.body.pageCount
+        book.description = req.body.description
+        await book.save()
+        res.render(`books/show`,{
+            book: book
+        })
+    } catch(er) {
+        console.log(er)
+        res.redirect('/books')
+    }
+})
+
+
+booksRouter.delete('/:id', (req, res) => {
+
+})
+
 async function renderNewPage(res, book, hasError = false) {
     try {
         const authors = await Author.find({})

@@ -1,0 +1,8 @@
+<h2><%= author.name %></h2>
+<a href="/authors/<%= author.id %>/edit">Edit</a>
+
+<div>
+    <% books.forEach(book => { %>
+        <p><%= book.title %></p>
+    <% }) %>
+</div>
